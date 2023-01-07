@@ -32,7 +32,7 @@ async def chat(update, context: ContextTypes.DEFAULT_TYPE):
         # Get the user's ID
     user_id = update.message.from_user.id
     print(user_id)
-    print(data['TelegramChatId'])
+    print(data['TelegramUserId'])
     # Check if the user's ID is the one you want
     if user_id != data['TelegramUserId']:
         # Do something here
