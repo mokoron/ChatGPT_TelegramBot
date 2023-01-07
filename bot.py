@@ -5,13 +5,19 @@ from warnings import filters
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters
 
+import json
+
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
+import json
 
+# Load chatgpt.json file
+with open('chatgpt.json') as f:
+  data = json.load(f)
 # Set up ChatGPT API client
-openai.api_key = "Your OpenAI API key here"
+openai.api_key = data['OpenAItoken']
 
 async def start(update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Hello! I am a ChatGPT bot. How can I help you today?")
@@ -40,7 +46,7 @@ async def chat(update, context: ContextTypes.DEFAULT_TYPE):
 
 
 if __name__ == '__main__':
-    application = ApplicationBuilder().token('Your Telegram token here').build()
+    application = ApplicationBuilder().token(data['TelegramBotToken']).build()
 
     start_handler = CommandHandler('start', start)
 
