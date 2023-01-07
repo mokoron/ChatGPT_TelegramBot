@@ -62,7 +62,6 @@ if __name__ == '__main__':
     application = ApplicationBuilder().token(data['TelegramBotToken']).build()
 
 # add check of telegram user id
-    if checkuser(update,context):
     start_handler = CommandHandler('start', start)
 
     chat_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), chat)
