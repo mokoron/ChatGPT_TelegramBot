@@ -1,4 +1,3 @@
-import os
 import openai
 import logging
 from warnings import filters
