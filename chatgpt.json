@@ -1,4 +1,5 @@
 {
   "OpenAItoken": "your token",
-  "TelegramBotToken": "your bot token"
+  "TelegramBotToken": "your bot token",
+  "TelegramUserId": "your user id"
 }
