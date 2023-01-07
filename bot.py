@@ -6,6 +6,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters
 
 import json
+import os
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -14,7 +15,11 @@ logging.basicConfig(
 import json
 
 # Load chatgpt.json file
-with open('chatgpt.json') as f:
+file_path = __file__
+dir_name = os.path.dirname(file_path)
+file_path = os.path.join(dir_name, 'chatgpt.json')
+
+with open(file_path) as f:
   data = json.load(f)
 # Set up ChatGPT API client
 openai.api_key = data['OpenAItoken']
@@ -24,6 +29,15 @@ async def start(update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def chat(update, context: ContextTypes.DEFAULT_TYPE):
+        # Get the user's ID
+    user_id = update.message.from_user.id
+    
+    # Check if the user's ID is the one you want
+    if user_id != data['TelegramUserId']:
+        # Do something here
+        context.bot.send_message(chat_id=update.message.chat_id, text="Sorry, you are not authorized to use this bot.")
+        return 
+
     # Check if message is not None
     if update.message and update.message.text:
         # Get user's message
@@ -33,8 +47,8 @@ async def chat(update, context: ContextTypes.DEFAULT_TYPE):
         response = openai.Completion.create(
             engine="text-davinci-003",
             prompt=message,
-            max_tokens=900,
-            temperature=0.5
+            max_tokens=1000,
+            temperature=0.7
         )
 
         # Get response from ChatGPT API
@@ -44,10 +58,11 @@ async def chat(update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(chat_id=update.effective_chat.id, text=response_text)
 
 
-
 if __name__ == '__main__':
     application = ApplicationBuilder().token(data['TelegramBotToken']).build()
 
+# add check of telegram user id
+    if checkuser(update,context):
     start_handler = CommandHandler('start', start)
 
     chat_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), chat)
