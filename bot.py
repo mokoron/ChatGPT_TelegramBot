@@ -34,7 +34,7 @@ async def chat(update, context: ContextTypes.DEFAULT_TYPE):
     print(user_id)
     print(data['TelegramUserId'])
     # Check if the user's ID is the one you want
-    if user_id != data['TelegramUserId']:
+    if  str(user_id) != data['TelegramUserId']:
         # Do something here
         context.bot.send_message(chat_id=update.message.chat_id, text="Sorry, you are not authorized to use this bot.")
         return 
