@@ -8,6 +8,8 @@ import json
 
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters
 
+public_bot=True;
+
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
@@ -44,6 +46,11 @@ async def donate(update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def chat(update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.message.from_user.id
+    if  public_bot and str(user_id) != config['TelegramUserId']:
+        # Do something here
+        context.bot.send_message(chat_id=update.message.chat_id, text="Sorry, you are not authorized to use this bot.")
+        return
     # Check if message is not None
     if update.message and update.message.text:
         # Get user's message
