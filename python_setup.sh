@@ -1,1 +1,1 @@
-pip install openai python-telegram-bot
+pip install openai python-telegram-bot pandas
