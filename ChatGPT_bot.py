@@ -21,7 +21,7 @@ with open('config.json') as f:
 # Set up ChatGPT API client
 openai.api_key = config['OpenAItoken']
 async def start(update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="Hello! I am a ChatGPT bot. How can I help you today? Just send me a message and I will keep talking.")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Hello! I am a akari bot. How can I help you today? Just send me a message and I will keep talking.")
 
 async def statistic(update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=analytics.analysis())
